@@ -1,0 +1,75 @@
+{
+	"name": "pipeline1",
+	"properties": {
+		"activities": [
+			{
+				"name": "azurefunction_get_vm_cpu_analysis",
+				"type": "AzureFunctionActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": []
+			}
+		],
+		"parameters": {
+			"FunctionName": {
+				"type": "string",
+				"defaultValue": "accees-to-logAnalytics"
+			},
+			"TenentId": {
+				"type": "string"
+			},
+			"ContentType": {
+				"type": "string"
+			},
+			"GrantType": {
+				"type": "string"
+			},
+			"ClientId": {
+				"type": "string"
+			},
+			"ClientSecret": {
+				"type": "string"
+			},
+			"Resource": {
+				"type": "string"
+			},
+			"EndPointUrl": {
+				"type": "string"
+			},
+			"WorkSpaceId": {
+				"type": "string"
+			},
+			"LogAnalyticsUrl": {
+				"type": "string"
+			},
+			"LogQuery": {
+				"type": "string"
+			},
+			"PreProcessFunctionName": {
+				"type": "string"
+			},
+			"ContainerName": {
+				"type": "string"
+			},
+			"FolderName": {
+				"type": "string"
+			},
+			"AccountName": {
+				"type": "string"
+			},
+			"AccountKey": {
+				"type": "string"
+			},
+			"LogContainerName": {
+				"type": "string"
+			}
+		},
+		"annotations": []
+	}
+}
