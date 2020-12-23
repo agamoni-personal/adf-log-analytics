@@ -22,46 +22,59 @@
 				"defaultValue": "accees-to-logAnalytics"
 			},
 			"TenentId": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "b16d5ae9-bfc3-4944-afcf-e29f792bdac6"
 			},
 			"ContentType": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "application/x-www-form-urlencoded"
 			},
 			"GrantType": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "client_credentials"
 			},
 			"ClientId": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "14f8fbe9-3505-4ee1-96f9-8aac669bd4d1"
 			},
 			"ClientSecret": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "8M.adCoqV_~qyg3NKz6bEu-Yx2Qa3_HEn4"
 			},
 			"Resource": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "https://api.loganalytics.io"
 			},
 			"EndPointUrl": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "https://login.microsoftonline.com/"
 			},
 			"WorkSpaceId": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "a61b0521-7ed9-4896-8ef3-2081ad8b40f5"
 			},
 			"LogAnalyticsUrl": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "https://api.loganalytics.io/v1/workspaces/"
 			},
 			"LogQuery": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "let setMBValue = 1024; Perf | where TimeGenerated <= ago(1h) | where ObjectName == 'Memory' and CounterName == 'Available MBytes' and Computer in ((Heartbeat  | distinct Computer)) | extend FreeMemory = CounterValue | summarize by Computer, TimeGenerated, CounterValue, ObjectName, FreeMemory | where FreeMemory > setMBValue"
 			},
 			"PreProcessFunctionName": {
 				"type": "string"
 			},
 			"ContainerName": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "preprocess"
 			},
 			"FolderName": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "cpuanalysis"
 			},
 			"AccountName": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "vmanalysisfunctionapp"
 			},
 			"AccountKey": {
 				"type": "string"
