@@ -1,5 +1,5 @@
 {
-	"name": "pipeline1",
+	"name": "pipeline_analyse_vm_cpu_performance",
 	"properties": {
 		"activities": [
 			{
@@ -13,7 +13,25 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"functionName": {
+						"value": "@pipeline().parameters.FunctionName",
+						"type": "Expression"
+					},
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"value": "{\n    \"tenentId\" : \"@{pipeline().parameters.TenentId}\",\n    \"contentType\" : \"@{pipeline().parameters.ContentType}\",\n    \"grantType\" : \"@{pipeline().parameters.GrantType}\",\n    \"clientId\" : \"@{pipeline().parameters.ClientId}\",\n    \"clientSecret\" : \"@{pipeline().parameters.ClientSecret}\",\n    \"resource\" : \"@{pipeline().parameters.Resource}\",\n    \"endPointUrl\" : \"@{pipeline().parameters.EndPointUrl}\",\n    \"workSpaceId\" : \"@{pipeline().parameters.WorkSpaceId}\",\n    \"logAnalyticsUrl\" : \"@{pipeline().parameters.LogAnalyticsUrl}\",\n    \"logQuery\" : \"@{pipeline().parameters.LogQuery}\",\n    \"accountName\" : \"@{pipeline().parameters.AccountName}\",\n    \"stageContainerName\" : \"@{pipeline().parameters.ContainerName}\",\n    \"stageFolderName\" : \"@{pipeline().parameters.FolderName}\",\n    \"accountKey\" : \"@{pipeline().parameters.AccountKey}\"\n}",
+						"type": "Expression"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "azurefunction_get_activitylog_linkedservice",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"parameters": {
@@ -62,7 +80,8 @@
 				"defaultValue": "let setMBValue = 1024; Perf | where TimeGenerated <= ago(1h) | where ObjectName == 'Memory' and CounterName == 'Available MBytes' and Computer in ((Heartbeat  | distinct Computer)) | extend FreeMemory = CounterValue | summarize by Computer, TimeGenerated, CounterValue, ObjectName, FreeMemory | where FreeMemory > setMBValue"
 			},
 			"PreProcessFunctionName": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "convert-json-to-csv"
 			},
 			"ContainerName": {
 				"type": "string",
@@ -77,10 +96,12 @@
 				"defaultValue": "vmanalysisfunctionapp"
 			},
 			"AccountKey": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "7nWVsL2yf7Yhx5G22hQrVF3xdJSyj/m9bymlC8hjEpQqgFY43/cEhTL1oYmaUgZQAZzu066en5HDjHFFhZDVEg=="
 			},
 			"LogContainerName": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "logs"
 			}
 		},
 		"annotations": []
