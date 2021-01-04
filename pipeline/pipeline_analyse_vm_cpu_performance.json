@@ -77,7 +77,7 @@
 			},
 			"LogQuery": {
 				"type": "string",
-				"defaultValue": "let setMBValue = 1024; Perf | where TimeGenerated <= ago(1h) | where ObjectName == 'Memory' and CounterName == 'Available MBytes' and Computer in ((Heartbeat  | distinct Computer)) | extend FreeMemory = CounterValue | summarize by Computer, TimeGenerated, CounterValue, ObjectName, FreeMemory | where FreeMemory > setMBValue"
+				"defaultValue": "let CPUThreasholdUsage = 80; Perf  | where TimeGenerated <= ago(1h) and  ObjectName == 'Processor' and  CounterName == '% Processor Time' and  InstanceName == '_Total' and  Computer in((Heartbeat | distinct Computer))  | summarize by Computer, TimeGenerated, ObjectName, CounterName, CounterValue | where CounterValue < CPUThreasholdUsage"
 			},
 			"PreProcessFunctionName": {
 				"type": "string",
