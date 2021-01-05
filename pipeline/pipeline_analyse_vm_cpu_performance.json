@@ -93,11 +93,11 @@
 			},
 			"AccountName": {
 				"type": "string",
-				"defaultValue": "vmanalysisfunctionapp"
+				"defaultValue": "vmlogstorageaccount"
 			},
 			"AccountKey": {
 				"type": "string",
-				"defaultValue": "7nWVsL2yf7Yhx5G22hQrVF3xdJSyj/m9bymlC8hjEpQqgFY43/cEhTL1oYmaUgZQAZzu066en5HDjHFFhZDVEg=="
+				"defaultValue": "EtDjDbp05/qwWDEkKcGWnjbv0/Eyf+t2YMsFAY6WWKnUy3Kix+tZ5Qf0ycdIxJ+rw5GNA2Xa/TrRQUKn9C/Osw=="
 			},
 			"LogContainerName": {
 				"type": "string",
