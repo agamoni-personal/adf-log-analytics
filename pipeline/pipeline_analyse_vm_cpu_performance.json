@@ -32,6 +32,41 @@
 					"referenceName": "azurefunction_get_activitylog_linkedservice",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "azurefunction_process_jsondata",
+				"type": "AzureFunctionActivity",
+				"dependsOn": [
+					{
+						"activity": "azurefunction_get_vm_cpu_analysis",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"functionName": "convert-json-to-csv",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"value": "{\n    \"logType\" : \"AzureActivity\",\n    \"stageContainerName\" : \"@{pipeline().parameters.ContainerName}\",\n    \"stageFolderName\" : \"@{concat(pipeline().parameters.FolderName, '/',formatDateTime(pipeline().TriggerTime, 'MM-dd-yyyy'))}\",\n    \"preprocessContainerName\" : \"@{pipeline().parameters.PreprocessContainerName}\",\n    \"preprocessFolderName\" : \"@{concat(pipeline().parameters.PreprocesFolderName, '/',formatDateTime(pipeline().TriggerTime, 'MM-dd-yyyy'))}\",\n    \"stageFileName\" : \"@{activity('azurefunction_get_vm_cpu_analysis').output.FileName}\",\n    \"accountName\" : \"@{pipeline().parameters.AccountName}\",\n    \"accountKey\" : \"@{pipeline().parameters.AccountKey}\"\n}",
+						"type": "Expression"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "azurefunction_dataconversion_linkedservice",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"parameters": {
@@ -102,6 +137,26 @@
 			"LogContainerName": {
 				"type": "string",
 				"defaultValue": "logs"
+			},
+			"DatawarehouseLogContainer": {
+				"type": "string",
+				"defaultValue": "datawarehouse"
+			},
+			"PreprocessContainerName": {
+				"type": "string",
+				"defaultValue": "stage"
+			},
+			"PreprocesFolderName": {
+				"type": "string",
+				"defaultValue": "cpuanalysis"
+			},
+			"StageTableName": {
+				"type": "string",
+				"defaultValue": "VmCpuAnalytics_Stage"
+			},
+			"PublishTableName": {
+				"type": "string",
+				"defaultValue": "VmCpuAnalytics_Publish"
 			}
 		},
 		"annotations": []
