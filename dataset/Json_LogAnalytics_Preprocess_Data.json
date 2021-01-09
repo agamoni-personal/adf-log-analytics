@@ -10,9 +10,30 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": "logfile-1610132320900.json",
+				"folderPath": "cpuanalysis/01-08-2021",
 				"fileSystem": "stage"
 			}
 		},
-		"schema": {}
+		"schema": {
+			"type": "object",
+			"properties": {
+				"Computer": {
+					"type": "string"
+				},
+				"TimeGenerated": {
+					"type": "string"
+				},
+				"ObjectName": {
+					"type": "string"
+				},
+				"CounterName": {
+					"type": "string"
+				},
+				"CounterValue": {
+					"type": "string"
+				}
+			}
+		}
 	}
 }

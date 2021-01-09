@@ -7,6 +7,36 @@
 		},
 		"annotations": [],
 		"type": "AzureSqlDWTable",
-		"schema": []
+		"schema": [
+			{
+				"name": "Id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Computer",
+				"type": "varchar"
+			},
+			{
+				"name": "TimeGenerated",
+				"type": "varchar"
+			},
+			{
+				"name": "ObjectName",
+				"type": "varchar"
+			},
+			{
+				"name": "CounterName",
+				"type": "varchar"
+			},
+			{
+				"name": "CounterValue",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "VmCpuAnalytics_Stage"
+		}
 	}
 }
