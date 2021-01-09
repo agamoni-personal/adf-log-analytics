@@ -106,7 +106,7 @@
 								"type": "Expression"
 							},
 							"wildcardFileName": {
-								"value": "@activity('azurefunction_process_jsondata').output.FileName",
+								"value": "@activity('azurefunction_get_vm_cpu_analysis').output.FileName",
 								"type": "Expression"
 							},
 							"enablePartitionDiscovery": false
