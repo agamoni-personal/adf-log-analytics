@@ -117,7 +117,10 @@
 					},
 					"sink": {
 						"type": "SqlDWSink",
-						"preCopyScript": "DELETE FROM [dbo].[@{pipeline().parameters.StageTableName}]",
+						"preCopyScript": {
+							"value": "DELETE FROM [dbo].[@{pipeline().parameters.StageTableName}]",
+							"type": "Expression"
+						},
 						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
@@ -184,6 +187,69 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "Stored procedure to create loganalytics table",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "copy_azureLogAnalytics_Data",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[IncrementalDataProc]",
+					"storedProcedureParameters": {
+						"Column1Name": {
+							"value": "Computer",
+							"type": "String"
+						},
+						"Column2Name": {
+							"value": "TimeGenerated",
+							"type": "String"
+						},
+						"Column3Name": {
+							"value": "ObjectName",
+							"type": "String"
+						},
+						"Column4Name": {
+							"value": "CounterName",
+							"type": "String"
+						},
+						"Column5Name": {
+							"value": "CounterValue",
+							"type": "String"
+						},
+						"PublishTableName": {
+							"value": {
+								"value": "@pipeline().parameters.PublishTableName",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"StageTableName": {
+							"value": {
+								"value": "@pipeline().parameters.StageTableName",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureSynapseAnalytics_LinkedService",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"parameters": {
