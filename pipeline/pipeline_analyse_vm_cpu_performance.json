@@ -190,7 +190,7 @@
 				]
 			},
 			{
-				"name": "Stored procedure to create loganalytics table",
+				"name": "Stored procedure to create loganalytics",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
